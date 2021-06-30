@@ -27,7 +27,7 @@ PLATFORMS
 
 DEPENDENCIES
   pry
-  require_all (~> 1.0)
+  require_all
   rspec
 
 BUNDLED WITH
