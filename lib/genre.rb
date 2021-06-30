@@ -1,43 +1,33 @@
 class Genre
-  #extends the Concerns::Findable module
   extend Concerns::Findable
-  
-  attr_accessor :name, :songs
-  
+  attr_accessor :name
+  attr_reader :songs, :artist
   @@all = []
-  
+
   def initialize(name)
     @name = name
-    # genre has many songs
-    @songs = [] 
+    @songs = []
   end
-  
-  def save
-    @@all << self
-  end
-  
+
   def self.all
     @@all
   end
-  
+
+  def save
+    self.class.all << self
+  end
+
   def self.destroy_all
-    @@all.clear
+    self.all.clear
   end
-  
-  #initializes, saves, and returns the song
+
   def self.create(name)
-    new_genre = self.new(name)
-    new_genre.save
-    new_genre
+    song = self.new(name)
+    song.save
+    song
   end
-  
-  # ASSOCIATIONS
-  
-  # returns a collection of artists for all of the genre's songs 
-  # (genre has many artists through songs)
+
   def artists
-    return self.songs.map(&:artist).uniq
-    # return self.songs.map { |song| song.artist }.uniq
+    songs.map { |e| e.artist  }.uniq
   end
-  
 end
